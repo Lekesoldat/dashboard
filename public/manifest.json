@@ -1,7 +1,18 @@
 {
   "short_name": "Dashboard",
   "name": "Dashboard",
-  "icons": [],
+  "icons": [
+    {
+      "src": "/icons/dashboard-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/icons/dashboard-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
   "scope": ".",
   "start_url": ".",
   "display": "standalone",
