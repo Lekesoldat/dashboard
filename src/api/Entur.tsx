@@ -1,5 +1,6 @@
 import ApolloClient, { gql } from 'apollo-boost';
 import React, { FC } from 'react';
+import moment from 'moment';
 import { ApolloProvider, useQuery } from 'react-apollo-hooks';
 
 const DEPARTURES_QUERY = gql`
@@ -7,7 +8,7 @@ const DEPARTURES_QUERY = gql`
     stopPlace(id: $id) {
       id
       name
-      estimatedCalls(timeRange: 86400, numberOfDepartures: 1) {
+      estimatedCalls(timeRange: 86400, numberOfDepartures: 10) {
         realtime
         aimedArrivalTime
         aimedDepartureTime
@@ -45,6 +46,19 @@ const Departures: FC = () => {
 
   return (
     <>
+      {/* Station name */}
+      <h1>{data.stopPlace.name}:</h1>
+      {/* All Departures */}
+      <ul>
+        {data.stopPlace.estimatedCalls.map(
+          (estimatedCall: any, index: number) => {
+            // Display data for train here
+
+            return <li key={index}>Some data.</li>;
+          }
+        )}
+      </ul>
+      {/* The raw data */}
       <pre>{JSON.stringify(data, null, 2)}</pre>
     </>
   );
@@ -52,7 +66,7 @@ const Departures: FC = () => {
 
 const Entur: FC = () => (
   <ApolloProvider client={client}>
-    <div>ApolloClient connected with Entur 🚆</div>
+    <div>ApolloClient connected with Entur</div>
     <Departures />
   </ApolloProvider>
 );
