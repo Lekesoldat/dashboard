@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { FC, Suspense } from 'react';
+import Loading from './Loading';
+import Entur from '../api/Entur';
 
-const App: React.FC = () => {
-  return <div>Hello World.</div>;
+const App: FC = () => {
+  return (
+    <Suspense fallback={<Loading />}>
+      <Entur />
+    </Suspense>
+  );
 };
 
 export default App;

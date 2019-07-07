@@ -8242,6 +8242,11 @@ react-is@^16.6.0, react-is@^16.8.1, react-is@^16.8.4:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.8.6.tgz#5bbc1e2d29141c9fbdfed456343fe2bc430a6a16"
   integrity sha512-aUk3bHfZ2bRSVFFbbeVS4i+lNPZr3/WM5jT2J5omUVV1zzcs1nAaf3l51ctA5FFvCRbhrH0bdAsRRQddFJZPtA==
 
+react-loading-animation@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-loading-animation/-/react-loading-animation-1.4.0.tgz#6b13dd148dc8ca15bd1e4136559c7c0bc1a2797c"
+  integrity sha512-oOO3LcEFoq7LBCraZA2Ny6/mLQThzgIJnySk0EzSea4cAUoDEQruiQjAL2VbKZP3gB3/4/j5cSuZ4MdN/GyOCQ==
+
 react-scripts@3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/react-scripts/-/react-scripts-3.0.1.tgz#e5565350d8069cc9966b5998d3fe3befe3d243ac"
