@@ -10,7 +10,7 @@ const DotWrapper = styled.div`
   display: flex;
   align-items: flex-end;
 `;
-const Dot = styled.div<{ delay: string }>`
+const Dot = styled.div`
   background-color: black;
   border-radius: 50%;
   width: 10px;

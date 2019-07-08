@@ -1,8 +1,8 @@
-import React, { FC, Suspense } from 'react';
+import React, { Suspense } from 'react';
 import Loading from './Loading';
 import Entur from '../api/Entur';
 
-const App: FC = () => {
+const App = () => {
   return (
     <Suspense fallback={<Loading />}>
       <Entur />

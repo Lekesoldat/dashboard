@@ -1,23 +1,40 @@
 import ApolloClient, { gql } from 'apollo-boost';
-import React, { FC } from 'react';
+import React from 'react';
 import moment from 'moment';
 import { ApolloProvider, useQuery } from 'react-apollo-hooks';
+
+const TRANSPORT_ICON = {
+  air: '✈️',
+  bus: '🚌',
+  cableway: '🚡',
+  water: '⛴️',
+  funicular: '🚠',
+  lift: '❔',
+  rail: '🚆',
+  metro: '🚇',
+  tram: '🚊',
+  coach: '🚌',
+  unknown: '❓'
+};
 
 const DEPARTURES_QUERY = gql`
   query departures($id: String!) {
     stopPlace(id: $id) {
       id
       name
-      estimatedCalls(timeRange: 86400, numberOfDepartures: 10) {
+
+      estimatedCalls(timeRange: 86400, numberOfDepartures: 5) {
         realtime
         aimedArrivalTime
         aimedDepartureTime
         expectedArrivalTime
         expectedDepartureTime
         date
+
         destinationDisplay {
           frontText
         }
+
         serviceJourney {
           journeyPattern {
             line {
@@ -36,7 +53,7 @@ const client = new ApolloClient({
   uri: 'https://api.entur.io/journey-planner/v2/graphql'
 });
 
-const Departures: FC = () => {
+const Departures = () => {
   const { data } = useQuery(DEPARTURES_QUERY, {
     suspend: true,
     variables: {
@@ -50,13 +67,30 @@ const Departures: FC = () => {
       <h1>{data.stopPlace.name}:</h1>
       {/* All Departures */}
       <ul>
-        {data.stopPlace.estimatedCalls.map(
-          (estimatedCall: any, index: number) => {
-            // Display data for train here
+        {data.stopPlace.estimatedCalls.map((estimatedCall, index) => {
+          const line = estimatedCall.serviceJourney.journeyPattern.line;
 
-            return <li key={index}>Some data.</li>;
-          }
-        )}
+          // Text from the display of the vehicle
+          const displayText = estimatedCall.destinationDisplay.frontText;
+
+          const timeUntilDeparture = moment(estimatedCall.expectedDepartureTime)
+            .startOf('second')
+            .fromNow();
+
+          const icon = TRANSPORT_ICON[line.transportMode];
+
+          return (
+            <li key={index}>
+              {icon +
+                ' ' +
+                line.name +
+                ' ' +
+                displayText +
+                ' leaves ' +
+                timeUntilDeparture}
+            </li>
+          );
+        })}
       </ul>
       {/* The raw data */}
       <pre>{JSON.stringify(data, null, 2)}</pre>
@@ -64,7 +98,7 @@ const Departures: FC = () => {
   );
 };
 
-const Entur: FC = () => (
+const Entur = () => (
   <ApolloProvider client={client}>
     <div>ApolloClient connected with Entur</div>
     <Departures />
