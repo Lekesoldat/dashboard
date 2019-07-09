@@ -1,6 +1,5 @@
 import React, { Suspense } from 'react';
 import GlobalStyle from './GlobalStyle';
-import Loading from './Loading';
 import Entur from '../api/Entur';
 import Bysykkel from '../api/Bysykkel';
 import { DotLoader } from 'react-spinners';
