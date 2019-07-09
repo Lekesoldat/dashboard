@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import GlobalStyle from './GlobalStyle';
+import GlobalStyles from './GlobalStyles';
 import Entur from '../api/Entur';
 import Bysykkel from '../api/Bysykkel';
 import { DotLoader } from 'react-spinners';
@@ -7,7 +7,7 @@ import { DotLoader } from 'react-spinners';
 const App = () => {
   return (
     <>
-      <GlobalStyle />
+      <GlobalStyles />
 
       <Suspense fallback={<DotLoader color='#36D7B7' />}>
         <Entur />

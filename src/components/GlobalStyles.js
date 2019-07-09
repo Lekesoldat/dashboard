@@ -8,7 +8,8 @@ const GlobalStyle = createGlobalStyle`
 
   * {
     font-family: 'Roboto', system-ui;
+    color: #f4f4f4;
   }
 `;
 
-export default GlobalStyle;
+export default GlobalStyles;
