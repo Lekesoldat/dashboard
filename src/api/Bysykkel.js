@@ -25,34 +25,29 @@ const getStationStatuses = async city => {
   return data;
 };
 
-// const getTrondheimStationStatus = async () => {
-//   const { data } = await Trondheim.get('station_status.json');
-//   return data;
-// };
-
+// Resources
 const allStations = createResource(getStations);
 const allStationStatuses = createResource(getStationStatuses);
 
-const Bysykkel = ({ city, station_id }) => {
+const Bysykkel = ({ city, name }) => {
+  // Data
   const stations = allStations.read(city);
   const stationStatuses = allStationStatuses.read(city);
 
-  const selectedStation = stations.data.stations.find(
-    x => x.station_id === station_id
+  const selectedStation = stations.data.stations.find(x => x.name === name);
+  const selectedStationStatus = stationStatuses.data.stations.find(
+    x => x.station_id === selectedStation.station_id
   );
 
-  const selectedStationStatus = stationStatuses.data.stations.find(
-    x => x.station_id === station_id
-  );
+  const availableBikes = selectedStationStatus.num_bikes_available;
+  const availableDocks = selectedStationStatus.num_docks_available;
 
   const lastUpdated = moment.unix(stationStatuses.last_updated).fromNow();
   return (
     <>
       <h1>{selectedStation.name}</h1>
-      <div>Available bikes: {selectedStationStatus.num_bikes_available}</div>
-      <div>
-        Available parking spots: {selectedStationStatus.num_docks_available}
-      </div>
+      <div>Available bikes: {availableBikes}</div>
+      <div>Available parking spots: {availableDocks}</div>
       <div>Updated {lastUpdated}!</div>
     </>
   );
