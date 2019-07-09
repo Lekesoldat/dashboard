@@ -1,6 +1,7 @@
 import ApolloClient, { gql } from 'apollo-boost';
 import React from 'react';
 import moment from 'moment';
+import styled from 'styled-components';
 import { ApolloProvider, useQuery } from 'react-apollo-hooks';
 
 const TRANSPORT_ICON = {
@@ -40,6 +41,7 @@ const DEPARTURES_QUERY = gql`
             line {
               id
               name
+              publicCode
               transportMode
             }
           }
@@ -49,15 +51,20 @@ const DEPARTURES_QUERY = gql`
   }
 `;
 
+const DepartureList = styled.ul`
+  list-style-type: none;
+  padding: 0;
+`;
+
 const client = new ApolloClient({
   uri: 'https://api.entur.io/journey-planner/v2/graphql'
 });
 
-const Departures = () => {
+const Departures = ({ id }) => {
   const { data } = useQuery(DEPARTURES_QUERY, {
     suspend: true,
     variables: {
-      id: 'NSR:StopPlace:313'
+      id: `NSR:StopPlace:${id}`
     }
   });
 
@@ -65,8 +72,9 @@ const Departures = () => {
     <>
       {/* Station name */}
       <h1>{data.stopPlace.name}:</h1>
+
       {/* All Departures */}
-      <ul>
+      <DepartureList>
         {data.stopPlace.estimatedCalls.map((estimatedCall, index) => {
           const line = estimatedCall.serviceJourney.journeyPattern.line;
 
@@ -83,7 +91,7 @@ const Departures = () => {
             <li key={index}>
               {icon +
                 ' ' +
-                line.name +
+                line.publicCode +
                 ' ' +
                 displayText +
                 ' leaves ' +
@@ -91,17 +99,15 @@ const Departures = () => {
             </li>
           );
         })}
-      </ul>
-      {/* The raw data */}
-      <pre>{JSON.stringify(data, null, 2)}</pre>
+      </DepartureList>
     </>
   );
 };
 
 const Entur = () => (
   <ApolloProvider client={client}>
-    <div>ApolloClient connected with Entur</div>
-    <Departures />
+    <Departures id='313' />
+    <Departures id='43153' />
   </ApolloProvider>
 );
 
