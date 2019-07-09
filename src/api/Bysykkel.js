@@ -29,12 +29,12 @@ const getStationStatuses = async city => {
 const allStations = createResource(getStations);
 const allStationStatuses = createResource(getStationStatuses);
 
-const Bysykkel = ({ city, name }) => {
+const Bysykkel = ({ city, station }) => {
   // Data
   const stations = allStations.read(city);
   const stationStatuses = allStationStatuses.read(city);
 
-  const selectedStation = stations.data.stations.find(x => x.name === name);
+  const selectedStation = stations.data.stations.find(x => x.name === station);
   const selectedStationStatus = stationStatuses.data.stations.find(
     x => x.station_id === selectedStation.station_id
   );
@@ -46,9 +46,9 @@ const Bysykkel = ({ city, name }) => {
   return (
     <>
       <h1>{selectedStation.name}</h1>
-      <div>Available bikes: {availableBikes}</div>
-      <div>Available parking spots: {availableDocks}</div>
-      <div>Updated {lastUpdated}!</div>
+      <div>🚲 {availableBikes}</div>
+      <div>🅿️ {availableDocks}</div>
+      <div>🕐 Updated {lastUpdated}!</div>
     </>
   );
 };

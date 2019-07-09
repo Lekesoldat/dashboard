@@ -14,7 +14,8 @@ const App = () => {
       </Suspense>
 
       <Suspense fallback={<DotLoader color='#36D7B7' />}>
-        <Bysykkel city='Trondheim' name='Lerkendal' />
+        <Bysykkel city='Trondheim' station='Lerkendal' />
+        <Bysykkel city='Oslo' station='Paléhaven' />
       </Suspense>
     </>
   );
