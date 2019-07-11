@@ -1,5 +1,6 @@
-import ApolloClient, { gql } from 'apollo-boost';
 import React from 'react';
+import ApolloClient, { gql } from 'apollo-boost';
+import Card from '../components/Card';
 import moment from 'moment';
 import styled from 'styled-components';
 import { ApolloProvider, useQuery } from 'react-apollo-hooks';
@@ -106,8 +107,13 @@ const Departures = ({ id }) => {
 
 const Entur = () => (
   <ApolloProvider client={client}>
-    <Departures id='313' />
-    <Departures id='43153' />
+    <Card>
+      <Departures id='313' />
+    </Card>
+
+    <Card>
+      <Departures id='43153' />
+    </Card>
   </ApolloProvider>
 );
 

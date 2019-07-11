@@ -8,6 +8,12 @@ const GlobalStyles = createGlobalStyle`
 
   * {
     font-family: 'Roboto', system-ui;
+    margin-block-start: 0;
+    margin-block-end: 0;
+  }
+
+  #root {
+    display: contents;
   }
 `;
 
